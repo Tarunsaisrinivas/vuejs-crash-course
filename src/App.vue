@@ -1,47 +1,37 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+export default {
+  data() {
+    return {
+      name: "Tarun",
+      status: "Active",
+      tasks: ["task1", "task2", "task3"],
+      link: "https://www.example.com",
+    };
+  },
+  methods: {
+    toggleStatus() {
+      if (this.status === "Active") {
+        this.status = "Pending";
+      } else if (this.status === "Pending") {
+        this.status = "Inactive";
+      } else {
+        this.status = "Active";
+      }
+    },
+  },
+};
 </script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <h1>{{ name }}</h1>
+  <p v-if="status === 'Active'">user is active</p>
+  <p v-else-if="status === 'Pending'">user is pending</p>
+  <p v-else>user is inactive</p>
+  <h3>Tasks:</h3>
+  <ul>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <li v-for="task in tasks" :key="task">{{ task }}</li>
+  </ul>
+  <a v-bind:href="link">Click Me</a>
+  <br>
+  <button @click = "toggleStatus">{{ status }}</button>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
